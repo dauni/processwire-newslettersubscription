@@ -48,6 +48,12 @@ You have to generate the link parameters depending on email and userAuthSalt.
   ```php
   echo $modules->get('NewsletterSubscription')->render();
   ```
+  or use
+  ```php
+  $modules->get('NewsletterSubscription')->watch();
+  ```
+  to avoid form-generation
+  
 * if you want to add own classes and/or markup, you can pass an option array as a parameter
 * to get an overview of what's possible, have a look at [How to overwrite classes and markup](https://github.com/justonestep/processwire-newslettersubscription/tree/develop#how-to-overwrite-classes-and-markup)
 
