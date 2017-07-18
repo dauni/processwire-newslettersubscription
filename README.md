@@ -31,18 +31,18 @@ You have to generate the link parameters depending on email and userAuthSalt.
 ## Usage
 
 * install the module
-~~* create fields which you want to add to the newsletter subscription form~~
+* ~~create fields which you want to add to the newsletter subscription form~~
   * if the field should be required, add this in the field settings
   * field email is mandatory and already preselected
 * assign these fields to the user template 
   * [How to assign fields to the user template](https://processwire.com/talk/topic/1156-custom-user-fields/?p=10161)
 * fill module settings
-  ~~* select fields which should be added to the form - save module config~~
+  * ~~select fields which should be added to the form - save module config~~
   * select fields which should be used as username
-  ~~* if you want to provide an unsubscribe option, activate the according checkbox~~
+  * ~~if you want to provide an unsubscribe option, activate the according checkbox~~
   * enter email from address
   * enter how many days the confirmation links should be valid (default 5 days)
-  ~~* define email text messages~~
+  * ~~define email text messages~~
 * call module
   
   
