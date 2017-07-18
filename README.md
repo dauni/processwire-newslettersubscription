@@ -42,7 +42,7 @@ You have to generate the link parameters depending on email and userAuthSalt.
   * ~~if you want to provide an unsubscribe option, activate the according checkbox~~
   * enter email from address
   * enter how many days the confirmation links should be valid (default 5 days)
-  * ~~define email text messages~~
+  * ~~define email text messages~~ Now HTML-Templates
 * call module
   
   
