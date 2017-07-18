@@ -69,8 +69,8 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 	public static function getModuleInfo() {
 		return array(
 			'title' => 'NeleSubscription',
-			'summary' => 'Allow users to subscribe and unsubscribe to a newsletter',
-			'version' => '1.0.1',
+			'summary' => 'Allow users to subscribe and unsubscribe to a newsletter.',
+			'version' => '4',
 			'author' => 'Tabea David, Daniel Pichler',
 			'href' => 'https://github.com/dauni/processwire-newslettersubscription/tree/without-form',
 			'autoload' => false,

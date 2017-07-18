@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.0.4 (2017-07)
+
+- Removed forms, so the plugin watches all posted values and does his work if the reqiuered values are present
+- removed unsubscribe-option because there is no auto-generated form
+
+
 ### 0.0.3 (2016-02-19)
 
 - extends option array

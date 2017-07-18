@@ -76,7 +76,7 @@ class NeleSubscriptionConfig extends ModuleConfig {
 		$help->value = $helpContent;
 		$inputfields->add($help);
 
-		// unsubscribe field
+		/*// unsubscribe field
 		$field = $this->modules->get('InputfieldCheckbox');
 		$field->name = 'unsubscribe';
 		$field->label = 'Unsubscribe option';
@@ -84,7 +84,7 @@ class NeleSubscriptionConfig extends ModuleConfig {
 		$field->value = 1;
 		$field->attr('checked', $unsubscribe ? 'checked' : '');
 		$field->columnWidth = 25;
-		$inputfields->add($field);
+		$inputfields->add($field);*/
 
 		// noCompare field
 		$field = $this->modules->get('InputfieldCheckbox');
@@ -112,7 +112,7 @@ class NeleSubscriptionConfig extends ModuleConfig {
 		$field->columnWidth = 25;
 		$inputfields->add($field);
 
-		// new fieldset containing messages
+		/*// new fieldset containing messages
 		$fieldset = $this->modules->get('InputfieldFieldset');
 		$fieldset->label = $this->_('E-Mail Messages');
 		$fieldset->collapsed = Inputfield::collapsedYes;
@@ -134,7 +134,7 @@ class NeleSubscriptionConfig extends ModuleConfig {
 		$field->columnWidth = 50;
 		$fieldset->add($field);
 
-		$inputfields->add($fieldset);
+		$inputfields->add($fieldset);*/
 
 		// new fieldset containing admin notification
 		$fieldset = $this->modules->get('InputfieldFieldset');
