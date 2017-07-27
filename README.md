@@ -43,11 +43,31 @@ You have to generate the link parameters depending on email and userAuthSalt.
   * enter email from address
   * enter how many days the confirmation links should be valid (default 5 days)
   * ~~define email text messages~~ Now HTML-Templates
+* create your form
+	* The form needs at least the following fields:
+		* __unsubscribe__ with the value "_subscribe_" or "_unsubscribe_"
+		* __roles__ with the value "_newsletter_"
+		* __language__ with the actual language (for NewsletterManagement)
+		* __timestamp__ with the current UNIX-Timestamp
+		* __submit__
+		* CSRF-Token
+		````php
+		$tokenName = $session->CSRF->getTokenName();
+		$tokenValue = $session->CSRF->getTokenValue();
+		<input type="checkbox" name="unsubscribe" value="subscribe"> Newsletter erhalten<br>
+		<input type="checkbox" name="unsubscribe" value="unsubscribe"> Keinen Newsletter erhalten
+		
+		<input type="hidden" name="<?= $tokenName ?>" value="<?= $tokenValue ?>">
+		<input type="hidden" name="roles" value="newsletter">
+		<input type="hidden" name="language" value="<?= $user->language->id ?>">
+		<input type="hidden" name="timestamp" value="<?= $datetime->date() ?>">
+		<button name="submit" value="Send" type="submit">Los</button>
+		````
 * call module
   
   
   ```php
-  echo $modules->get('NewsletterSubscription')->watch();
+  echo $modules->get('NeleSubscription')->watch();
   ```
  
   

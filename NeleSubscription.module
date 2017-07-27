@@ -20,6 +20,8 @@
  */
 class NeleSubscription extends WireData implements Module, ConfigurableModule {
 
+
+
 	/**
 	 * Markup used during the render() method
 	 */
