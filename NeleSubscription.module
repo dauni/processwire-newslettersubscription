@@ -21,7 +21,6 @@
 class NeleSubscription extends WireData implements Module, ConfigurableModule {
 
 
-
 	/**
 	 * Markup used during the render() method
 	 */
@@ -576,14 +575,16 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 
 			// if form was submitted
 			if ($this->input->post->submit) {
-
+				$success = false;
 				// if unsubscribe=unsubscribe don't process form, only validate email
 				if ($this->input->post->unsubscribe === 'unsubscribe') {
 					$success = $this->doUnsub();
 					$text = $this->_('Your newsletter request has been processed successfully! Please check your email for further instructions to comfirm the unsubscription.');
-				} else {
+				} elseif ($this->input->post->unsubscribe === 'subscribe') {
 					$success = $this->doSub();
 					$text = $this->_('Congratulations, your newsletter request has been processed successfully! Please check your email for further instructions.');
+				} else {//Weder subscribe, noch unsubscribe: do nothing
+					return;
 				}
 
 				// the form contains errors
@@ -598,6 +599,7 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 				$out .= "<p class='newsletter--{$message[0]}'>{$message[1]}</p>";
 			}
 		}
+		if ($this->err) $out .= $this->err;
 		#$this->output = $out;
 		return $out;
 	}
@@ -632,7 +634,7 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 				$this->sendValidationMail($token, $user, 'unsubscribe');
 			}
 		}
-
+		$this->err = implode(" ", $error);
 		return $success;
 	}
 
@@ -641,6 +643,9 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 		$err = array();
 		$email = new \stdClass();
 		$email->value = $this->sanitizer->email($this->input->post->email);
+
+		if (!$email->value) $err[] = (__('No email address given.'));
+
 		$unique = $this->users->find("email=$email->value,roles=newsletter,status=" . Page::statusOn);
 		if (!$this->noCompare && count($unique) > 0) $err[] = (__('This email address is already registered.'));
 
@@ -651,7 +656,7 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 			$success = true;
 			$this->addUser();
 		}
-
+		$this->err = implode(" ", $err);
 		return $success;
 	}
 
