@@ -111,6 +111,8 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 		// enable user
 		if ($user = $this->getAndValidateUser($out, Page::statusHidden)) {
 			$user->set('status', Page::statusOn);
+			$user->of(false);
+			$user->confirmmail = '';
 			$user->save();
 
 			$this->log->save('messages', "User has been successfully confirmed with email `{$user->email}`.");
@@ -140,6 +142,7 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 		// no user/page was found
 		if (!$result->num_rows) {
 			$out .= $message;
+			$this->err .= $message;
 			return false;
 		}
 
@@ -210,6 +213,7 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 			$user->setOutputFormatting(false);
 			$user->status = Page::statusHidden;
 			$user->timestamp = $this->datetime->date();
+			$user->confirmmail = '';
 			$user->save();
 
 			$this->log->save('messages', "User has been successfully unsubscribed with email `{$user->email}`.");
@@ -497,9 +501,12 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 		$u->name = $name;
 		$u->email = $emailString;
 		$u->language = $this->input->post->language;
+		$u->firstname = $this->input->post->firstname;
+		$u->surname = $this->input->post->surname;
 		$u->addRole('newsletter');
 		$u->status = Page::statusHidden;
 		$u->timestamp = $this->input->timestamp;
+		$u->confirmmail = 'sent';
 
 		//Keine Processwire-Forms
 		/*foreach ($this->formfields as $f) {
@@ -631,7 +638,12 @@ class NeleSubscription extends WireData implements Module, ConfigurableModule {
 			if ($user instanceof User) {
 				// send unsubscribe mail
 				$token = sha1($emailString . $this->config->userAuthSalt);
+				$user->of(false);
+				$user->confirmmail = 'sent';
+				$user->save();
+				$user->of(true);
 				$this->sendValidationMail($token, $user, 'unsubscribe');
+
 			}
 		}
 		$this->err = implode(" ", $error);
